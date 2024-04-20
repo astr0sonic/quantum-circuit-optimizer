@@ -5,7 +5,10 @@ from utils import get_diff_index
 
 
 def get_quantum_circuit(
-    target: int, num_qubits: int, params: list[float], path_matrix: list[list[list[int]]]
+    target: int,
+    num_qubits: int,
+    params: list[float],
+    path_matrix: list[list[list[int]]],
 ) -> QuantumCircuit:
     """Construct a for quantum hashing/fingerprinting adopted for the topology represented by the matrix
     of the shortest paths between all pairs of qubits
