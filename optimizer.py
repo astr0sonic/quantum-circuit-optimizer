@@ -1,8 +1,3 @@
-from sympy.combinatorics import GrayCode
-
-from utils import get_diff_index
-
-
 def optimize_cnots(num_qubits: int, dist_matrix: list[list[int]]) -> tuple[list[int], list[int]]:
     """Count the number of CNOT-gates depending on the target qubit's index
     for topology represented by the matrix of the minimal distances between all pairs of qubits
@@ -34,10 +29,11 @@ def get_cnots_count(target: int, num_qubits: int, distance_matrix: list[list[int
         int: number of CNOT-gates
     """
     cnots_count = 0
-    current_code = GrayCode(num_qubits - 1)
-    for _ in range(0, 2 ** (num_qubits - 2)):
-        control = get_diff_index(current_code, target, num_qubits)
-        current_cnots_count = 2 * distance_matrix[control][target] - 1
-        cnots_count += current_cnots_count
-        current_code = current_code.next()
-    return cnots_count * 2
+    current = 2
+    for i in range(0, num_qubits - 1):
+        control = i if target != i else num_qubits - 1
+        d = distance_matrix[control][target]
+        cnots_count += current * (2 * d - 1)
+        if i != 0:
+            current *= 2
+    return cnots_count

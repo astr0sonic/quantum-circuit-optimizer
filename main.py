@@ -1,11 +1,11 @@
-from architectures import FALCON_R511H_EDGES, FALCON_R511H_NUM_QUBITS
+from architectures import *
 from circuit import get_quantum_circuit
 from graph import floyd_warshall, get_matrix_from_edges, get_shortest_paths
 from optimizer import optimize_cnots
 
 if __name__ == "__main__":
-    num_qubits = FALCON_R511H_NUM_QUBITS
-    edges = FALCON_R511H_EDGES
+    num_qubits = FALCON_R4P_NUM_QUBITS
+    edges = FALCON_R4P_EDGES
 
     adj_matrix = get_matrix_from_edges(num_qubits, edges)
     dist_matrix, aux_path_matrix = floyd_warshall(adj_matrix)
