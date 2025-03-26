@@ -17,6 +17,7 @@ def get_diff_index(current_code: GrayCode, target: int, num_qubits: int) -> int:
     for i in range(len(current)):
         if current[i] != next[i]:
             diff_index = i
+            break
     if diff_index == target:
         diff_index = num_qubits - 1
     return diff_index
