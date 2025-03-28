@@ -1,55 +1,47 @@
 from qiskit import QuantumCircuit
-from sympy.combinatorics import GrayCode
+from qiskit.circuit.library import RYGate, RZGate
 
-from src.quantum_circuit.ucr_circuit_optimizer.utils import get_diff_index
+from src.quantum_circuit.ucr_circuit_optimizer.circuit import get_ucr_circuit
 
 
-def get_quantum_circuit(
+def get_quantum_hashing_circuit(
     target: int,
     num_qubits: int,
     params: list[float],
+    is_amplitude_form: bool,
     path_matrix: list[list[list[int]]],
 ) -> QuantumCircuit:
-    """Construct a for quantum hashing/fingerprinting adopted for the topology represented by the matrix
-    of the shortest paths between all pairs of qubits
+    """Construct a quantum circuit for quantum hashing that is adapted to the specific architecture
+    (that represented by the matrix of the shortest paths between all pairs of qubits).
 
     Args:
         target (int): index of the target qubit
-        num_qubits (int): _number of qubits
-        params (list[float]): list of parameters of the scheme
+        num_qubits (int): number of the qubits
+        params (list[float]): list of the parameters (rotation angles)
+        is_amplitude_form (bool): indicates whether the amplitude form (True) or the phase form (False) is used
         path_matrix (list[list[list[int]]]): matrix of the shortest paths between all pairs of qubits
 
     Returns:
-        QuantumCircuit: adopted quantum circuit
+        QuantumCircuit: quantum circuit for quantum hashing adapted to the specific architecture
     """
-    qc = QuantumCircuit(num_qubits)
-    apply_hadamard(qc)
+    hadamard_layer_circuit = QuantumCircuit(num_qubits)
+    apply_hadamard(hadamard_layer_circuit, target)
 
-    current_code = GrayCode(num_qubits - 1)
-    for i in range(0, 2 ** (num_qubits - 1)):
-        qc.ry(params[i], target)
-        qc.barrier()
-
-        control = get_diff_index(current_code, target, num_qubits)
-        path = path_matrix[control][target]
-        rev_path = list(reversed(path))
-
-        for i in range(len(path) - 1):
-            qc.cx(path[i], path[i + 1])
-        for i in range(1, len(rev_path) - 1):
-            qc.cx(rev_path[i + 1], rev_path[i])
-        qc.barrier()
-
-        current_code = current_code.next()
-
-    return qc
+    rotation_gate = RYGate if is_amplitude_form else RZGate
+    ucr_circuit = get_ucr_circuit(target, num_qubits, params, rotation_gate, path_matrix)
+    result_qc = hadamard_layer_circuit.compose(ucr_circuit)
+    return result_qc
 
 
-def apply_hadamard(qc: QuantumCircuit) -> None:
-    """Apply Hadamard gate for each qubit in the circuit
+def apply_hadamard(qc: QuantumCircuit, target: int) -> None:
+    """Apply the Hadamard gate to each qubit in the circuit, except for the target qubit
 
     Args:
         qc (QuantumCircuit): quantum circuit
+        target (int): index of the target qubit
     """
     for i in range(qc.num_qubits):
+        if i == target:
+            continue
         qc.h(i)
+    qc.barrier()

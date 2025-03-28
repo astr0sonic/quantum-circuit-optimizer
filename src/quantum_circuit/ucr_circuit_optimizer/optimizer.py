@@ -1,4 +1,6 @@
-def optimize_cnots(num_qubits: int, dist_matrix: list[list[int]]) -> tuple[list[int], list[int]]:
+def calculate_cnots_counts(
+    num_qubits: int, dist_matrix: list[list[int]]
+) -> tuple[list[int], list[int]]:
     """Count the number of CNOT-gates depending on the target qubit's index
     for topology represented by the matrix of the minimal distances between all pairs of qubits
 
@@ -11,13 +13,13 @@ def optimize_cnots(num_qubits: int, dist_matrix: list[list[int]]) -> tuple[list[
     """
     cnots_counts = []
     for target in range(num_qubits):
-        cnots_count = get_cnots_count(target, num_qubits, dist_matrix)
+        cnots_count = calculate_cnots_count(target, num_qubits, dist_matrix)
         cnots_counts.append(cnots_count)
     optimal_indices = [index for index, val in enumerate(cnots_counts) if val == min(cnots_counts)]
     return (optimal_indices, cnots_counts)
 
 
-def get_cnots_count(target: int, num_qubits: int, distance_matrix: list[list[int]]) -> int:
+def calculate_cnots_count(target: int, num_qubits: int, distance_matrix: list[list[int]]) -> int:
     """Get the number of CNOT-gates for a fixed target qubit
 
     Args:
