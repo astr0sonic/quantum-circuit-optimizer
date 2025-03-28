@@ -9,7 +9,8 @@ from src.quantum_circuit.ucr_circuit_optimizer.graph import (
 from src.quantum_circuit.ucr_circuit_optimizer.optimizer import calculate_cnots_counts
 from src.quantum_computer.architectures import *
 
-if __name__ == "__main__":
+
+def optimize_1() -> None:
     num_qubits = FALCON_R511H_NUM_QUBITS
     edges = FALCON_R511H_EDGES
 
@@ -24,3 +25,12 @@ if __name__ == "__main__":
     path_matrix = get_shortest_paths(aux_path_matrix)
     is_amplitude_form = True
     qc = get_quantum_hashing_circuit(target, num_qubits, params, is_amplitude_form, path_matrix)
+
+
+# TODO
+def optimize_2() -> None:
+    pass
+
+
+if __name__ == "__main__":
+    optimize_1()

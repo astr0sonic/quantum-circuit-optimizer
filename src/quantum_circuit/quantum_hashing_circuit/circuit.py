@@ -45,3 +45,28 @@ def apply_hadamard(qc: QuantumCircuit, target: int) -> None:
             continue
         qc.h(i)
     qc.barrier()
+
+
+###
+
+
+# TODO
+def get_quantum_circuit2(
+    target: int, num_qubits: int, params: list[float], paths_from_target: dict[int, list[int]]
+) -> QuantumCircuit:
+    pass
+
+
+# TODO
+def unrolled_ladder(qc: QuantumCircuit, path: list[int]) -> None:
+    pass
+
+
+# TODO
+def get_diff_index(code1: np.ndarray, code2: np.ndarray) -> int:
+    pass
+
+
+# TODO
+def compute_gray_codes(k: int) -> np.ndarray:
+    pass

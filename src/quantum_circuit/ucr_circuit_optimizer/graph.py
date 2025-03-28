@@ -86,3 +86,21 @@ def get_shortest_path(i: int, j: int, next: list[list[int]]) -> list[int]:
     if i != j:
         path.append(j)
     return path
+
+
+###
+
+
+# TODO
+def matrix_to_adj_list(matrix: list[list[int]]) -> dict[int, list[int]]:
+    pass
+
+
+# TODO
+def bfs_single(graph: dict[int, list[int]], start: int):
+    pass
+
+
+# TODO
+def reconstruct_path(start: int, end: int, parents: dict[int, int]) -> list[int]:
+    pass
