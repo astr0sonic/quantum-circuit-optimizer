@@ -12,18 +12,18 @@ def get_ucr_circuit(
     rotation_gate: Gate,
     path_matrix: list[list[list[int]]],
 ) -> QuantumCircuit:
-    """Construct a for quantum hashing/fingerprinting adopted for the architecture represented by the matrix
-    of the shortest paths between all pairs of qubits
+    """Construct a quantum circuit for uniformly controlled rotation that is adapted to the specific architecture
+    (that represented by the matrix of the shortest paths between all pairs of qubits).
 
     Args:
         target (int): index of the target qubit
-        num_qubits (int): _number of qubits
+        num_qubits (int): number of the qubits
         params (list[float]): list of the parameters (rotation angles)
         rotation_gate (Gate): rotation gate (Ry or Rz)
         path_matrix (list[list[list[int]]]): matrix of the shortest paths between all pairs of qubits
 
     Returns:
-        QuantumCircuit: quantum circuit for ucr adapted to the specific architecture
+        QuantumCircuit: quantum circuit for iniformly controlled rotation adapted to the specific architecture
     """
     qc = QuantumCircuit(num_qubits)
 

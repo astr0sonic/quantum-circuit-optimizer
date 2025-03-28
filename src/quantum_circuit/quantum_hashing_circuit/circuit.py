@@ -38,7 +38,7 @@ def apply_hadamard(qc: QuantumCircuit, target: int) -> None:
 
     Args:
         qc (QuantumCircuit): quantum circuit
-        target (int): index of the target qubit
+        target (int): index of the target qubit (in [0, qc.num_qubits - 1])
     """
     for i in range(qc.num_qubits):
         if i == target:
