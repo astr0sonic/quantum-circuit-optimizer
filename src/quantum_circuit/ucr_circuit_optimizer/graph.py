@@ -2,10 +2,10 @@ INFINITY = 1_000_000_000_000
 
 
 def floyd_warshall(matrix: list[list[bool]]) -> tuple[list[list[int]], list[list[int]]]:
-    """Floyd-Warshall algorithm for an undirected unweighted graph
+    """Floyd-Warshall algorithm for an unweighted, undirected graph
 
     Args:
-        matrix (list[list[bool]]): adjacency matrix of the undirected unweighted graph
+        matrix (list[list[bool]]): adjacency matrix of the unweighted, undirected graph
 
     Returns:
         tuple[list[list[int]], list[list[int]]]: matrix of the lengths of the shortest paths
@@ -30,11 +30,11 @@ def floyd_warshall(matrix: list[list[bool]]) -> tuple[list[list[int]], list[list
 
 
 def get_matrix_from_edges(num_vertices: int, edges: list[tuple[int, int]]) -> list[list[bool]]:
-    """Get the adjacency matrix of an undirected unweighted graph from its list of edges
+    """Get an adjacency matrix of the unweighted, undirected graph from its list of edges
 
     Args:
-        num_vertices (int): number of vertices
-        edges (list[tuple[int, int]]): list of edges
+        num_vertices (int): number of the vertices
+        edges (list[tuple[int, int]]): list of the edges
 
     Returns:
         list[list[bool]]: adjacency matrix

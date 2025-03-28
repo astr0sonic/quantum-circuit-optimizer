@@ -12,7 +12,7 @@ def get_quantum_hashing_circuit(
     path_matrix: list[list[list[int]]],
 ) -> QuantumCircuit:
     """Construct a quantum circuit for quantum hashing that is adapted to the specific architecture
-    (that represented by the matrix of the shortest paths between all pairs of qubits).
+    (represented by the matrix of the shortest paths between all pairs of qubits).
 
     Args:
         target (int): index of the target qubit
