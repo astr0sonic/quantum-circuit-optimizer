@@ -1,1 +1,1 @@
-# Quantum Circuit Optimizer
+# Quantum Hashing Circuit Optimizer

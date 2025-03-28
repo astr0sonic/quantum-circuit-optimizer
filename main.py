@@ -1,11 +1,15 @@
-from architectures import *
-from circuit import get_quantum_circuit
-from graph import floyd_warshall, get_matrix_from_edges, get_shortest_paths
-from optimizer import optimize_cnots
+from src.quantum_circuit.quantum_hashing_circuit.circuit import get_quantum_circuit
+from src.quantum_circuit.ucr_circuit_optimizer.graph import (
+    floyd_warshall,
+    get_matrix_from_edges,
+    get_shortest_paths,
+)
+from src.quantum_circuit.ucr_circuit_optimizer.optimizer import optimize_cnots
+from src.quantum_computer.architectures import *
 
 if __name__ == "__main__":
-    num_qubits = FALCON_R4P_NUM_QUBITS
-    edges = FALCON_R4P_EDGES
+    num_qubits = FALCON_R511_NUM_QUBITS
+    edges = FALCON_R511_EDGES
 
     adj_matrix = get_matrix_from_edges(num_qubits, edges)
     dist_matrix, aux_path_matrix = floyd_warshall(adj_matrix)

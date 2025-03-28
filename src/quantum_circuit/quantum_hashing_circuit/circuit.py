@@ -1,7 +1,7 @@
 from qiskit import QuantumCircuit
 from sympy.combinatorics import GrayCode
 
-from utils import get_diff_index
+from src.quantum_circuit.ucr_circuit_optimizer.utils import get_diff_index
 
 
 def get_quantum_circuit(
