@@ -2,12 +2,12 @@ from sympy.combinatorics import GrayCode
 
 
 def get_diff_index(current_code: GrayCode, target: int, num_qubits: int) -> int:
-    """Get the index of the differing bit of 2 adjacent Gray code words
+    """Get the index of the differing bit between two adjacent Gray code words.
 
     Args:
         current (GrayCode): current Gray code word
         target (int): index of the target qubit
-        num_qubits (int): number of qubits
+        num_qubits (int): number of the qubits
 
     Returns:
         int: differing index in [0, num_qubits - 1]

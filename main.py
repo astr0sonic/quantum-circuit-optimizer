@@ -10,8 +10,8 @@ from src.quantum_circuit.ucr_circuit_optimizer.optimizer import calculate_cnots_
 from src.quantum_computer.architectures import *
 
 if __name__ == "__main__":
-    num_qubits = FALCON_R4P_NUM_QUBITS
-    edges = FALCON_R4P_EDGES
+    num_qubits = FALCON_R511H_NUM_QUBITS
+    edges = FALCON_R511H_EDGES
 
     adj_matrix = get_matrix_from_edges(num_qubits, edges)
     dist_matrix, aux_path_matrix = floyd_warshall(adj_matrix)
@@ -20,7 +20,7 @@ if __name__ == "__main__":
     print(f"CNOTs counts: {cnots_counts}")
 
     target = optimal_indices[0]
-    params = [1.0] * (2**num_qubits)
+    params = [i for i in range(2 ** (num_qubits - 1))]
     path_matrix = get_shortest_paths(aux_path_matrix)
     is_amplitude_form = True
     qc = get_quantum_hashing_circuit(target, num_qubits, params, is_amplitude_form, path_matrix)

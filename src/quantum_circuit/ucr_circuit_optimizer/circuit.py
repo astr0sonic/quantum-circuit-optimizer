@@ -2,6 +2,7 @@ from qiskit import QuantumCircuit
 from qiskit.circuit import Gate
 from sympy.combinatorics import GrayCode
 
+from src.quantum_circuit.ucr_circuit_optimizer.params import compute_modified_params
 from src.quantum_circuit.ucr_circuit_optimizer.utils import get_diff_index
 
 
@@ -26,26 +27,42 @@ def get_ucr_circuit(
         QuantumCircuit: quantum circuit for iniformly controlled rotation adapted to the specific architecture
     """
     qc = QuantumCircuit(num_qubits)
+    modified_params = compute_modified_params(params, num_qubits - 1)
     current_code = GrayCode(num_qubits - 1)
     for i in range(0, 2 ** (num_qubits - 1)):
-        apply_rotation(qc, target, rotation_gate, params[i])
+        apply_rotation(qc, target, rotation_gate, modified_params[i])
         control = get_control_index(target, num_qubits, current_code)
-        apply_cnots(qc, target, control, path_matrix)
+        apply_cnot(qc, target, control, path_matrix)
         current_code = current_code.next()
     return qc
 
 
 def get_control_index(target: int, num_qubits: int, current_code: GrayCode) -> int:
+    """Get index of the control qubit of the CNOT gate.
+
+    Args:
+        qc (QuantumCircuit): quantum circuit
+        num_qubits (int): number of the qubits
+        current_code (GrayCode): current Gray code
+    """
     control = get_diff_index(current_code, target, num_qubits)
     return control
 
 
 def apply_rotation(qc: QuantumCircuit, target: int, rotation_gate: Gate, angle: float) -> None:
+    """Apply the rotation gate to the traget qubit.
+
+    Args:
+        qc (QuantumCircuit): quantum circuit
+        target (int): index of the target qubit
+        rotation_gate (Gate): rotation gate (Ry gate or Rz gate)
+        angle (float): rotation angle
+    """
     qc.append(rotation_gate(angle), [target])
     qc.barrier()
 
 
-def apply_cnots(
+def apply_cnot(
     qc: QuantumCircuit, target: int, control: int, path_matrix: list[list[list[int]]]
 ) -> None:
     """Apply the CNOT gate according to the architecture restrictions.
