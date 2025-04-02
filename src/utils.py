@@ -1,10 +1,14 @@
 import tkinter as tk
-
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 
-# TODO
 def show_quantum_circuit(figure):
+    """
+    Display the quantum circuit diagram in a Tkinter window.
+
+    Args:
+        figure: Matplotlib figure representing the quantum circuit.
+    """
     root = tk.Tk()
     root.title("Quantum Circuit")
     screen_width = root.winfo_screenwidth()
